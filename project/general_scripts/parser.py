@@ -1,7 +1,8 @@
 import pandas as pd
 import numpy as np
+import time
 from sklearn.preprocessing import OneHotEncoder
-testDB = "D:/projekt/project/datasets/testDB.txt"
+testDB = "D:/projekt/project/datasets/buried_exposed_beta.3line.txt"
 
 def filetodictionary(filename):
     dictionary = {}
@@ -31,9 +32,6 @@ def letterstonumbers(dictionary):
         dictionary[key][1] = statenumbers
     return dictionary
 
-#def worksofar(filename):
-#    return letterstonumbers(filetodictionary(filename))
-
 #def selectwidowlen():
     '''
     allow user to enter the windowlenm
@@ -47,6 +45,7 @@ def createwindow(windowlen, filename):
     and as a result produce an 2d array where a window of n residues is taken and the central one is described by feature in this place
     '''
     dictionary = letterstonumbers(filetodictionary(filename))
+    #dictionary = {"A": [[1,2,3,4,5,6,7,8,9], [0,1,0,0,1,0,1,0,1]]}
     n = windowlen // 2
     #for each protein
     for key in dictionary:
@@ -55,21 +54,42 @@ def createwindow(windowlen, filename):
         state = dictionary[key][1]
         listofwindows = []
         listofstates = []
-        for aa in range(n - 1, len(seq) - n + 1):
-            listofwindows.append(np.array(seq[aa - 2:aa + 3]))
-            listofstates.append(np.array(state[aa]))
+        for aa in range(len(seq)):
+            if aa in range(0, n):
+                listof0 = [0] * (n - aa)
+                listofwindows.append(np.array(listof0 + seq[0:aa + n + 1]))
+                listofstates.append(np.array(state[aa]))
+            elif aa in range(len(seq) - n,len(seq)):
+                listof0 = [0] * (n + 1 + aa -len(seq))
+                listofwindows.append(np.array(seq[aa - n:len(seq)] + listof0))
+                listofstates.append(np.array(state[aa]))
+            else:
+                listofwindows.append(np.array(seq[aa - n :aa + n + 1]))
+                listofstates.append(np.array(state[aa]))
         dictionary[key][0] = listofwindows
         dictionary[key][1] = listofstates
-        break
     return dictionary
 
-def SVMconventer(window, state):
+def SVMconventer(filename):
     '''
     converts window into SVM accepted format(onehotencoder)
     '''
-    
+    start = time.time()
+    np.set_printoptions(threshold=np.nan)
+    dictionary = createwindow(3, filename)
+    for key in dictionary:
+        listofencodedwindows = []
+        for seq in dictionary[key][0]:
+            enc = OneHotEncoder()
+            encodedwindow = enc.fit_transform(dictionary[key][0]).toarray()
+            listofencodedwindows.append(encodedwindow)
+        dictionary[key][0] = listofencodedwindows
+    end = time.time()
+    print(end - start)
+    return dictionary
     
 if __name__ == "__main__":
     #print(filetodictionary(testDB))
     #featurestonumbers(filetodictionary(testDB))
-    print(createwindow(7, testDB))
+    #print(createwindow(5, testDB))
+    print(SVMconventer(testDB))
