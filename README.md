@@ -16,4 +16,6 @@ Diary:
 * 23.02
     * Corrected dates in diary, apparently its not january anymore
     * finnished my parser so it now given database is produces matrices of windows and lists of states in a dictionary.
-    
+* 24.02
+    * working on dictionaries made me realy frustrated, changed to lists and frustration is gone
+    * tried using map function for changing states and aa into numbers, it worked just fine 
