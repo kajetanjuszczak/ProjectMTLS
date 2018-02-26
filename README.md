@@ -19,3 +19,10 @@ Diary:
 * 24.02
     * working on dictionaries made me realy frustrated, changed to lists and frustration is gone
     * tried using map function for changing states and aa into numbers, it worked just fine 
+* 26.02
+    * consolidated all functions into one program
+    * did backup all in one script where windows for different proteins are stored separately, merged them in my script
+    * established system where user can input the fold of kFold validation 
+    * introduced Kfold validation of my set
+    * my script now prints out the average accuracy after k fold cross validation of my dataset
+    

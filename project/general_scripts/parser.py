@@ -57,6 +57,14 @@ def selectwidowlen():
         windowlen = int(input("select window len(has to be odd number):"))
     return windowlen
 
+def selectcrossvalid():
+    '''
+    allow user to enter the windowlen
+    *problem how not to allow string input
+    '''
+    crosval = int(input("select fold of cross validation:"))
+    return crosval
+
 def createwindow(windowlen, filename):
     '''
     creates the window of the lenght desired by user
@@ -105,15 +113,11 @@ def SVMconventer(filename):
 
 def crossvalidation(filename):
     data = SVMconventer(filename)
-    x = data[0][1]
-    y = data[1][1]
-    
-    clf = svm.SVC()
-    clf.fit(x, y) 
-    X_train, X_test, y_train, y_test = train_test_split(x, y, test_size=0.5, random_state=0)
-    clf = svm.SVC(kernel='linear', C=1).fit(X_train, y_train)
-    scoreofcv = clf.score(X_test, y_test)  
-    return scoreofcv
+    crosval = selectcrossvalid()
+    clf = svm.SVC(kernel='linear', C=1.0).fit(data[0][1], data[1][1]) 
+    score2 = cross_val_score(clf, data[0][1], data[1][1], cv=crosval)
+    avgscore = np.average(score2)
+    return avgscore
     
 if __name__ == "__main__":
     #print(SVMconventer(testDB))
