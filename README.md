@@ -25,4 +25,9 @@ Diary:
     * established system where user can input the fold of kFold validation 
     * introduced Kfold validation of my set
     * my script now prints out the average accuracy after k fold cross validation of my dataset
-    
+* 28.02
+    * my model creating script works. 
+    * best accuracy for window 19 for accuracies see documents folder
+    * predictor predicts, only problem is its getting errors in one of aminoacids is not present in given sequence cause it change the shape of the array making it not suitable for model
+    * I should work on the abovementioned problem
+    * next step analysis of the results, false positives false negatives etc. 
