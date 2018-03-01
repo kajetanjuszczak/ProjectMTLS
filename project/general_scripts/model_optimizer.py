@@ -39,7 +39,7 @@ for state in listofstates:
         number = map[position]
         newstate.append(number)
     statesinnumbers.append(newstate)
-for windowlen in range(3,33,2):
+for windowlen in range(3,23,2):
     n = windowlen // 2
     listofwindows = []
     listofstates = []
@@ -61,17 +61,12 @@ for windowlen in range(3,33,2):
     enc = OneHotEncoder(n_values=21)
     encodedwindows = enc.fit_transform(listofwindows).toarray()
     listalls = np.array(listalls)
-    model = tree.DecisionTreeClassifier()
-    score = cross_val_score(model, encodedwindows, listalls, cv=3, verbose=True)
+    model = svm.SVC(kernel="linear", cache_size=2000, tol=0.003)
+    score = cross_val_score(model, encodedwindows, listalls, cv=3)
     print("windowlen:", windowlen,"score:", np.average(score))
-### tried Kfol cv it seems like it was also working fine ###
-#kf = KFold(n_splits=crosval)
-#scorelist = []
-#for train, test in kf.split(encodedwindows, listalls):
-#    X_train, X_test, y_train, y_test = encodedwindows[train], encodedwindows[test], listalls[train], listalls[test]
-#    clf = svm.SVC().fit(X_train, y_train)
-#    score2 = clf.score(X_test, y_test)
-#    scorelist.append(score2)
-#avgscore = (np.average(scorelist))*100
-#print("average accuracy:","%.2f" % avgscore,"% for widow lenght of", windowlen,"and Kfold cross validation for k:", crosval, "time: ", "%.2f" % (time), "s.")
-#"%.2f" %
+'''
+things to try with my model:
+kernel=’rbf’, degree=3, gamma=’auto’, coef0=0.0, shrinking=True, probability=False, tol=0.001, cache_size=200, class_weight=None, verbose=False, max_iter=-1, decision_function_shape=’ovr’, random_state=None
+things cheched without much effect:
+C=1.0, degree=3, gamma=’auto’, coef0=0.0
+'''

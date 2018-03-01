@@ -31,3 +31,8 @@ Diary:
     * predictor predicts, only problem is its getting errors in one of aminoacids is not present in given sequence cause it change the shape of the array making it not suitable for model
     * I should work on the abovementioned problem
     * next step analysis of the results, false positives false negatives etc. 
+* 1.03
+    * resolved issue with error in shape of predictors - set value of the encoder to 21
+    * tested all different kernels and settings of model, seems like linear is best. only improvement found was when tolerance was moved to 0.003 (0.001 default) not big difference tho
+    * checked scores for random forest and simple decision tree, they are attached in results
+    
