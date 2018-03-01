@@ -37,7 +37,7 @@ for count in range(len(seqinnumbers)):
         else:
             listofwindows.append(np.array(seqinnumbers[count][aa - n :aa + n + 1]))
     listofwindows_single.append(listofwindows)
-enc = OneHotEncoder()
+enc = OneHotEncoder(n_values=21)
 apendencoded = []
 for i in range(len(listofwindows_single)):
     encodedwindows = enc.fit_transform(listofwindows_single[i]).toarray()
@@ -68,6 +68,8 @@ with open("outputfile.txt", "w") as f:
         f.write(("\n"))
         f.write(stringsofstates[i])
         f.write(("\n"))
-
+np.set_printoptions(threshold=np.nan)
+a = encodedwindows.shape
+print(a)
 ### TODO: encode using one hot encoder, one by one and predict one by one ###
 ### TODO: if one aminoacid not present ruin the whole thing ###

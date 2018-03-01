@@ -59,7 +59,7 @@ for count in range(len(seqinnumbers)):
             listofstates.append(statesinnumbers[count][aa])
 listalls = np.array(listofstates)
 ### ENCODING INTO SVM INPUT, CROSSVALIDATING USING KMEANS AND PRINTING AVERAGE ACCURACY###
-enc = OneHotEncoder()
+enc = OneHotEncoder(n_values=21)
 encodedwindows = enc.fit_transform(listofwindows).toarray()
 listalls = np.array(listalls)
 model = svm.SVC().fit(encodedwindows, listalls)
