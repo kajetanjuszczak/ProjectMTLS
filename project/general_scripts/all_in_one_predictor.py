@@ -22,7 +22,7 @@ for seq in listofsequences:
         number = map[aa]
         newseq.append(number)          
     seqinnumbers.append(newseq)
-windowlen = 19
+windowlen = 17
 n = windowlen // 2
 listofwindows_single = []
 for count in range(len(seqinnumbers)):   
@@ -68,8 +68,5 @@ with open("outputfile.txt", "w") as f:
         f.write(("\n"))
         f.write(stringsofstates[i])
         f.write(("\n"))
-np.set_printoptions(threshold=np.nan)
-a = encodedwindows.shape
-print(a)
 ### TODO: encode using one hot encoder, one by one and predict one by one ###
 ### TODO: if one aminoacid not present ruin the whole thing ###

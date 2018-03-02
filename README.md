@@ -1,4 +1,10 @@
 # ProjectMTLS
+* For 2.03 deadline
+scripts are present in general scripts folder
+all_in_one_model creates model from dataset
+all_in_one_predictor predicts the topology based on the model created by all_in_one_model and save prediction in text file called output.txt
+all_in_one_predictor takes the test DB from file called testPDB in data set folder, I assume the text file have format: line1: prot id, line2:seq and so on
+
 
 Diary:
 * 20.02
@@ -35,4 +41,6 @@ Diary:
     * resolved issue with error in shape of predictors - set value of the encoder to 21
     * tested all different kernels and settings of model, seems like linear is best. only improvement found was when tolerance was moved to 0.003 (0.001 default) not big difference tho
     * checked scores for random forest and simple decision tree, they are attached in results
-    
+
+* 2.03 
+    * quick update for deadline instruction and make sure my model actualy predicts

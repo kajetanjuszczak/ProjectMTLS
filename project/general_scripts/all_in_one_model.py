@@ -40,7 +40,7 @@ for state in listofstates:
         number = map[position]
         newstate.append(number)
     statesinnumbers.append(newstate)
-windowlen = 19
+windowlen = 17
 n = windowlen // 2
 listofwindows = []
 listofstates = []
@@ -62,7 +62,7 @@ listalls = np.array(listofstates)
 enc = OneHotEncoder(n_values=21)
 encodedwindows = enc.fit_transform(listofwindows).toarray()
 listalls = np.array(listalls)
-model = svm.SVC().fit(encodedwindows, listalls)
+model = svm.SVC(kernel="linear", cache_size=2000, tol=0.003).fit(encodedwindows, listalls)
 joblib.dump(model, 'model.pkl')
 ### tried Kfol cv it seems like it was also working fine ###
 #kf = KFold(n_splits=crosval)
@@ -75,6 +75,6 @@ joblib.dump(model, 'model.pkl')
 #avgscore = (np.average(scorelist))*100
 end = time.time()
 time = end - start
-print(time)
+#print(time)
 #print("average accuracy:","%.2f" % avgscore,"% for widow lenght of", windowlen,"and Kfold cross validation for k:", crosval, "time: ", "%.2f" % (time), "s.")
 #"%.2f" %
