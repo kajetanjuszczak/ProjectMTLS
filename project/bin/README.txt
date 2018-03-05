@@ -1,1 +1,1 @@
-short scripts
+tamplate for project
