@@ -1,4 +1,4 @@
-export BLASTDB:=/local_uniref/uniref/uniref90
+export BLASTDB:=scratch/
 
 cd ../datasets/SingleFastaForPSSM
 for entry in *.fasta
