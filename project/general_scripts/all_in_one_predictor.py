@@ -2,6 +2,7 @@ import numpy as np
 import time
 from sklearn.preprocessing import OneHotEncoder
 from sklearn.externals import joblib
+import os
 testDBP = "../datasets/testDBP.txt"
 #buried_exposed_beta.3line
 ###EXTRACTING NAME, SEQUENCE AND TOPOLOGY FROM FILE INTO DIFFERENT LISTS###
@@ -60,7 +61,9 @@ for seqofstate in listofpredictions:
 stringsofstates = []
 for i in range(len(listofstates)):
     stringsofstates.append("".join(listofstates[i]))
-with open("outputfile.txt", "w") as f:
+resultdir = '../results/'
+os.chdir(resultdir)
+with open("predictor.txt", "w") as f:
     for i in range(len(listofnames)):
         f.write(listofnames[i])
         f.write(("\n"))

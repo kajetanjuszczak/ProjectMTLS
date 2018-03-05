@@ -61,7 +61,7 @@ for windowlen in range(3,23,2):
     enc = OneHotEncoder(n_values=21)
     encodedwindows = enc.fit_transform(listofwindows).toarray()
     listalls = np.array(listalls)
-    model = svm.SVC(kernel="linear", cache_size=2000, tol=0.003)
+    model = svm.LinearSVC(tol=0.003, max_iter=5000)
     score = cross_val_score(model, encodedwindows, listalls, cv=3)
     print("windowlen:", windowlen,"score:", np.average(score))
 '''
