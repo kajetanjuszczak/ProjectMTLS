@@ -1,8 +1,6 @@
 import numpy as np
 from sklearn.preprocessing import OneHotEncoder
 from sklearn import svm
-from sklearn.model_selection import KFold
-from sklearn.model_selection import cross_val_score
 from sklearn.externals import joblib
 import time
 '''
@@ -57,6 +55,7 @@ for count in range(len(seqinnumbers)):
         else:
             listofwindows.append(np.array(seqinnumbers[count][aa - n :aa + n + 1]))
             listofstates.append(statesinnumbers[count][aa])
+    print(np.array(listofwindows).shape)
 listalls = np.array(listofstates)
 ### ENCODING INTO SVM INPUT, CROSSVALIDATING USING KMEANS AND PRINTING AVERAGE ACCURACY###
 enc = OneHotEncoder(n_values=21)
