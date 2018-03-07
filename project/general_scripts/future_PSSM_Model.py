@@ -28,22 +28,26 @@ windowlen = 17
 n = windowlen // 2
 listofwindows = []
 listofstates = []
-zeros = np.array([0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0])
+zeros = np.asarray([0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0])
+print(type(zeros))
 for prot in listofseq:
     for aa in range(len(prot)):
-        window = []
+        window = np.empty(20, 1)
         if aa in range(0, n):
-            for nr in range(aa ,n):
-                window.append(zeros)
+            #for nr in range(aa ,n):
+                #window.concatenate(zeros)
+            #print(window)
+            break
             window.extend(prot[0:aa + n + 1])
         elif aa in range(len(prot) - n,len(prot)):
             window.extend(prot[aa - n:len(prot)])
             for nr in range(0,aa - len(prot) + n + 1):
                 window.append(zeros)
         else:
-            window.extend(prot[aa - n :aa + n + 1])      
+            window.extend(prot[aa - n :aa + n + 1])
+        np.concatenate(window)
+        print(window)
         listofwindows.append(window)
-        print(np.array(listofwindows).shape)
     break
     
 

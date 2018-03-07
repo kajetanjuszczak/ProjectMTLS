@@ -44,3 +44,13 @@ Diary:
 
 * 2.03 
     * quick update for deadline instruction and make sure my model actualy predicts
+* 5.03
+    * fighting with bash script to work it finalyy work but take 25 min / prot on my pc, tried using remotely lab pcs didnt work
+    * DB into separate fasta files
+* 6.03
+    * trying to figure out how to make the PSSM parser
+* 7.03 
+    * figured out I pushed from wrong direction so diary wasnt updated :|
+    * Did PSSM from swisprot cuz its fast
+    * working on PSSM extractor - how to merge data in windows
+    * also make fractions
