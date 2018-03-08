@@ -2,7 +2,6 @@ import numpy as np
 from sklearn import svm
 from sklearn.externals import joblib
 import time
-from sklearn.model_selection import cross_val_score
 '''
 take PSSM file and state
 '''
@@ -21,7 +20,6 @@ listofseq = []
 for filename in listofnames:
     matrix = np.genfromtxt("../datasets/PSSMasci/"+filename+".fasta.pssm", skip_header = 3, skip_footer = 5, dtype=None,usecols = range(22,42))
     listofseq.append(matrix/100)
-    print(listofseq)
 
 map = {"B":0, "E":1}
 statesinnumbers = []
@@ -52,21 +50,20 @@ for prot in listofseq:
         window = np.array(window)
         b =  window.flatten()
         listofwindows.append(b)
-        #print(listofwindows)
-        a = np.array(listofwindows)
+a = np.array(listofwindows)
+print(a)
 ### list of windwo states
 states = []
-for state in listofstates:
+for state in statesinnumbers:
     for aa in range(len(state)):
         states.append(state[aa])
 states = np.array(states)
+print(a.shape, states.shape)
 model = svm.LinearSVC(tol=0.003, max_iter=5000)     
-score = cross_val_score(model, a, states, cv=3, verbose = True) 
-end = time.time()
-#print(end - start)
-print(np.average(score))
 model.fit(a, states)
 joblib.dump(model, 'modelPSSM.pkl')
+end = time.time()
+print(end - start)
     
 
       

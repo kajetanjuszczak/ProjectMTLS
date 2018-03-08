@@ -55,14 +55,13 @@ for count in range(len(seqinnumbers)):
         else:
             listofwindows.append(np.array(seqinnumbers[count][aa - n :aa + n + 1]))
             listofstates.append(statesinnumbers[count][aa])
-    print(np.array(listofwindows).shape)
 listalls = np.array(listofstates)
 ### ENCODING INTO SVM INPUT, CROSSVALIDATING USING KMEANS AND PRINTING AVERAGE ACCURACY###
 enc = OneHotEncoder(n_values=21)
 encodedwindows = enc.fit_transform(listofwindows).toarray()
 listalls = np.array(listalls)
-#model = svm.SVC(kernel="linear", cache_size=2000, tol=0.003).fit(encodedwindows, listalls)
-#joblib.dump(model, 'model.pkl')
+model = svm.SVC(kernel="linear", cache_size=2000, tol=0.003).fit(encodedwindows, listalls)
+joblib.dump(model, 'model.pkl')
 ### tried Kfol cv it seems like it was also working fine ###
 #kf = KFold(n_splits=crosval)
 #scorelist = []

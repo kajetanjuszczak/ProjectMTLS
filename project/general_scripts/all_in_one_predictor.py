@@ -3,7 +3,7 @@ import time
 from sklearn.preprocessing import OneHotEncoder
 from sklearn.externals import joblib
 import os
-testDBP = "../datasets/testDBP.txt"
+testDBP = "../datasets/testDB.txt"
 #buried_exposed_beta.3line
 ###EXTRACTING NAME, SEQUENCE AND TOPOLOGY FROM FILE INTO DIFFERENT LISTS###
 start = time.time()
