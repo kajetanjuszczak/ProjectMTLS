@@ -2,9 +2,9 @@ import numpy as np
 from sklearn import svm
 from sklearn.externals import joblib
 import time
-from sklearn.model_selection import cross_val_score
+import os
 '''
-take PSSM file and state
+take PSSM file and predict the state.
 '''
 testDB = "../datasets/buried_exposed_beta.3line.txt"
 start = time.time()
@@ -21,17 +21,7 @@ listofseq = []
 for filename in listofnames:
     matrix = np.genfromtxt("../datasets/PSSMasci/"+filename+".fasta.pssm", skip_header = 3, skip_footer = 5, dtype=None,usecols = range(22,42))
     listofseq.append(matrix/100)
-    print(listofseq)
 
-map = {"B":0, "E":1}
-statesinnumbers = []
-for state in listofstates:
-    newstate = []
-    for position in state:
-        number = map[position]
-        newstate.append(number)
-    statesinnumbers.append(newstate)
-### create windows + match the states
 windowlen = 17
 n = windowlen // 2
 listofwindows = []
@@ -52,21 +42,32 @@ for prot in listofseq:
         window = np.array(window)
         b =  window.flatten()
         listofwindows.append(b)
-        #print(listofwindows)
         a = np.array(listofwindows)
-### list of windwo states
-states = []
-for state in listofstates:
-    for aa in range(len(state)):
-        states.append(state[aa])
-states = np.array(states)
-model = svm.LinearSVC(tol=0.003, max_iter=5000)     
-score = cross_val_score(model, a, states, cv=3, verbose = True) 
-end = time.time()
-#print(end - start)
-print(np.average(score))
-model.fit(a, states)
-joblib.dump(model, 'modelPSSM.pkl')
-    
-
-      
+        
+model = joblib.load("modelPSSM.pkl")
+listofpredictions = []
+for i in range(len(a)):
+    prediction = model.predict(a[i])
+    listofpredictions.append(prediction)
+listofstates = []    
+for seqofstate in listofpredictions:
+    newstate = []
+    for position in seqofstate:
+        if position == 0:
+            newstate.append("B")
+        else:
+            newstate.append("E")
+    listofstates.append(newstate)
+stringsofstates = []
+for i in range(len(listofstates)):
+    stringsofstates.append("".join(listofstates[i]))
+resultdir = '../results/'
+os.chdir(resultdir)
+with open("predictorPSSM.txt", "w") as f:
+    for i in range(len(listofnames)):
+        f.write(listofnames[i])
+        f.write(("\n"))
+        f.write(listofsequences[i])
+        f.write(("\n"))
+        f.write(stringsofstates[i])
+        f.write(("\n"))
