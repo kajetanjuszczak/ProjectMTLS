@@ -1,13 +1,13 @@
 import numpy as np
-from sklearn.preprocessing import OneHotEncoder
 from sklearn import svm
 from sklearn.externals import joblib
 import time
+from sklearn.model_selection import cross_val_score
 '''
 take PSSM file and state
 '''
 testDB = "../datasets/buried_exposed_beta.3line.txt"
-
+start = time.time()
 listofnames =  []
 listofsequences = []
 listofstates = []
@@ -16,28 +16,31 @@ for i, line in enumerate(open(testDB, "r")):
         listofnames.append(line.strip(">\n"))
     if i % 3 == 2:
         listofstates.append(line.strip("\n"))
-        
 ### find a file based on name of it
 listofseq = []
 for filename in listofnames:
     matrix = np.genfromtxt("../datasets/PSSMasci/"+filename+".fasta.pssm", skip_header = 3, skip_footer = 5, dtype=None,usecols = range(22,42))
     listofseq.append(matrix)
-   
+
+map = {"B":0, "E":1}
+statesinnumbers = []
+for state in listofstates:
+    newstate = []
+    for position in state:
+        number = map[position]
+        newstate.append(number)
+    statesinnumbers.append(newstate)
 ### create windows + match the states
 windowlen = 17
 n = windowlen // 2
 listofwindows = []
-listofstates = []
 zeros = np.asarray([0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0])
-print(type(zeros))
 for prot in listofseq:
     for aa in range(len(prot)):
-        window = np.empty(20, 1)
+        window = []
         if aa in range(0, n):
-            #for nr in range(aa ,n):
-                #window.concatenate(zeros)
-            #print(window)
-            break
+            for nr in range(aa ,n):
+                window.append(zeros)
             window.extend(prot[0:aa + n + 1])
         elif aa in range(len(prot) - n,len(prot)):
             window.extend(prot[aa - n:len(prot)])
@@ -45,10 +48,23 @@ for prot in listofseq:
                 window.append(zeros)
         else:
             window.extend(prot[aa - n :aa + n + 1])
-        np.concatenate(window)
-        print(window)
-        listofwindows.append(window)
-    break
+        window = np.array(window)
+        b =  window.flatten()
+        listofwindows.append(b)
+        #print(listofwindows)
+        a = np.array(listofwindows)
+### list of windwo states
+states = []
+for state in listofstates:
+    for aa in range(len(state)):
+        states.append(state[aa])
+states = np.array(states)
+model = svm.LinearSVC(tol=0.003, max_iter=5000)     
+score = cross_val_score(model, a, states, cv=3, verbose = True) 
+end = time.time()
+#print(end - start)
+print(np.average(score))
+joblib.dump(model, 'modelPSSM.pkl')
     
 
       
