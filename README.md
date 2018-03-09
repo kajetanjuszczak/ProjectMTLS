@@ -54,3 +54,7 @@ Diary:
     * Did PSSM from swisprot cuz its fast
     * working on PSSM extractor - how to merge data in windows
     * also make fractions
+* 8.03 
+    * working on the PSSM
+    * ask bout the extraction of additional proteins tmr
+    * work on results from today to make graphs for the final report

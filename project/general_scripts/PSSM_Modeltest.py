@@ -28,6 +28,7 @@ for state in listofstates:
         newstate.append(number)
     statesinnumbers.append(newstate)
 ### create windows + match the states
+kernels = ["rbf","sigmoid","poly","linear"]
 for windowlen in range(3,32,2):
     n = windowlen // 2
     listofwindows = []
@@ -40,9 +41,9 @@ for windowlen in range(3,32,2):
                     window.append(zeros)
                 window.extend(prot[0:aa + n + 1])
             elif aa in range(len(prot) - n,len(prot)):
-                window.extend(prot[aa - n:len(prot)])
-                for nr in range(0,aa - len(prot) + n + 1):
-                    window.append(zeros)
+              window.extend(prot[aa - n:len(prot)])
+              for nr in range(0,aa - len(prot) + n + 1):
+                  window.append(zeros)
             else:
                 window.extend(prot[aa - n :aa + n + 1])
             window = np.array(window)
@@ -50,12 +51,13 @@ for windowlen in range(3,32,2):
             listofwindows.append(b)
             #print(listofwindows)
             a = np.array(listofwindows)
-    ### list of windwo states
+    
     states = []
     for state in statesinnumbers:
         for aa in range(len(state)):
             states.append(state[aa])
-    states = np.array(states)
-    model = svm.LinearSVC(tol=0.003, max_iter=5000)
-    score = cross_val_score(model, a, states, cv=3)
-    print("windowlen:", windowlen,"score:", np.average(score))
+    for j in kernels:
+        states = np.array(states)
+        model = svm.SVC(cache_size = 3500, kernel = j, tol=0.003, coef0 = 1, degree = 2)
+        score = cross_val_score(model, a, states, cv=3, verbose = True)
+        print("windowlen:", windowlen,"kernel:", j,"score:", np.average(score))
