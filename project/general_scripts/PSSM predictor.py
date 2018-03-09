@@ -70,7 +70,6 @@ for prot in seqinnumbers:
         b =  window.flatten()
         listofwindows.append(b)
     listofsinglewindows.append(listofwindows)
-print(len(listofsinglewindows))
 model = joblib.load("modelPSSM.pkl")
 listofpredictions = []
 for i in range(len(listofsinglewindows)):
@@ -92,6 +91,7 @@ resultdir = '../results/'
 os.chdir(resultdir)
 with open("predictedPSSM.txt", "w") as f:
     for i in range(len(listofnames)):
+        f.write(">")
         f.write(listofnames[i])
         f.write(("\n"))
         f.write(listofsequences[i])

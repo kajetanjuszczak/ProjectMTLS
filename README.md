@@ -1,9 +1,9 @@
 # ProjectMTLS
-* For 2.03 deadline
+* For 9.03 deadline
 scripts are present in general scripts folder
-all_in_one_model creates model from dataset
-all_in_one_predictor predicts the topology based on the model created by all_in_one_model and save prediction in text file called output.txt
-all_in_one_predictor takes the test DB from file called testPDB in data set folder, I assume the text file have format: line1: prot id, line2:seq and so on
+PSSM model generates model
+PSSM predictor predict topology for one protein removed from training set to remove chance of biased results
+results are stored in ../results folder as predictedPSSM
 
 
 Diary:

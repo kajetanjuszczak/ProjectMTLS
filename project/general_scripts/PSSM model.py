@@ -51,14 +51,12 @@ for prot in listofseq:
         b =  window.flatten()
         listofwindows.append(b)
 a = np.array(listofwindows)
-print(a)
 ### list of windwo states
 states = []
 for state in statesinnumbers:
     for aa in range(len(state)):
         states.append(state[aa])
 states = np.array(states)
-print(a.shape, states.shape)
 model = svm.LinearSVC(tol=0.003, max_iter=5000)     
 model.fit(a, states)
 joblib.dump(model, 'modelPSSM.pkl')
