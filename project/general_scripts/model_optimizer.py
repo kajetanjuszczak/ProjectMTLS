@@ -8,7 +8,7 @@ from sklearn import tree
 '''
 My modeler is taking all windows of whole dataset as one list as it does not matter which seq the window belong to for taining purposes
 '''
-testDB = "../datasets/buried_exposed_beta.3line.txt"
+testDB = "../datasets/full DB/buried_exposed_beta.3line.txt"
 #buried_exposed_beta.3line
 ###EXTRACTING NAME, SEQUENCE AND TOPOLOGY FROM FILE INTO DIFFERENT LISTS###
 listofnames =  []
@@ -58,7 +58,7 @@ for state in listofstates:
         number = map[position]
         newstate.append(number)
     statesinnumbers.append(newstate)
-for windowlen in range(3,23,2):
+for windowlen in range(3,32,2):
     n = windowlen // 2
     listofwindows = []
     listofstates = []

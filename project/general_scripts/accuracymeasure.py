@@ -1,3 +1,4 @@
+from sklearn.metrics import matthews_corrcoef
 ### accuracy of final prediction based on model ###
 ### use DB with states in it to check real life accuracy
 testDB = "../datasets/testdata/testDB.txt"
@@ -20,6 +21,3 @@ for i in range(len(truestates)):
         if truestates[i][state] == predstates[i][state]:
             print(truestates[i][state], predstates[i][state])
             correctpred += 1
-
-accuracy = correctpred / totalscore
-print(accuracy)

@@ -58,3 +58,10 @@ Diary:
     * working on the PSSM
     * ask bout the extraction of additional proteins tmr
     * work on results from today to make graphs for the final report
+* 9.03 
+    * posted deadline things
+* 12.03
+    * testing of model running some optimization and statistics for the final report
+    * trying to improve the model
+    * looking for state of the are for SVC predictors on my task
+    * ROC 
