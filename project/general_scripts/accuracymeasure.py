@@ -1,7 +1,7 @@
 from sklearn.metrics import matthews_corrcoef
 ### accuracy of final prediction based on model ###
 ### use DB with states in it to check real life accuracy
-testDB = "../datasets/testdata/testDB.txt"
+testDB = "../datasets/oldtestDB/1prottest.txt"
 output = "../results/predictedPSSM.txt"
 truestates = []
 for i, line in enumerate(open(testDB, "r")):
@@ -21,3 +21,5 @@ for i in range(len(truestates)):
         if truestates[i][state] == predstates[i][state]:
             print(truestates[i][state], predstates[i][state])
             correctpred += 1
+
+print(correctpred/totalscore)

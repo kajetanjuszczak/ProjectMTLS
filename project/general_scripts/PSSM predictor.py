@@ -1,17 +1,16 @@
 import numpy as np
-from sklearn import svm
-from sklearn.externals import joblib
 import time
 import os
+import pickle
 '''
 take PSSM file and predict the state.
 '''
-testDB = "../datasets/testdata/testDB.txt"
+oneprot = "../datasets/oldtestDB/1prottest.txt"
 start = time.time()
 listofnames =  []
 listofsequences = []
 listofstates = []
-for i, line in enumerate(open(testDB, "r")):
+for i, line in enumerate(open(oneprot, "r")):
     if i % 3 == 0:
         listofnames.append(line.strip(">\n"))
     if i % 3 == 1:
@@ -70,12 +69,13 @@ for prot in seqinnumbers:
         b =  window.flatten()
         listofwindows.append(b)
     listofsinglewindows.append(listofwindows)
-model = joblib.load("modelPSSM.pkl")
+with open("../models/PSSM_model", "rb") as f:
+    model = pickle.load(f)
 listofpredictions = []
 for i in range(len(listofsinglewindows)):
     prediction = model.predict(listofsinglewindows[i])
     listofpredictions.append(prediction)
-listofstates = []    
+listofstates = []
 for seqofstate in listofpredictions:
     newstate = []
     for position in seqofstate:

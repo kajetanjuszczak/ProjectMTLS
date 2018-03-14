@@ -1,16 +1,14 @@
 import numpy as np
 from sklearn import svm
-from sklearn.externals import joblib
-import time
+import pickle
 '''
 take PSSM file and state
 '''
-testDB = "../datasets/buried_exposed_beta.3line.txt"
-start = time.time()
+DB = "../datasets/full DB/buried_exposed_beta.3line.txt"
 listofnames =  []
 listofsequences = []
 listofstates = []
-for i, line in enumerate(open(testDB, "r")):
+for i, line in enumerate(open(DB, "r")):
     if i % 3 == 0:
         listofnames.append(line.strip(">\n"))
     if i % 3 == 2:
@@ -18,7 +16,7 @@ for i, line in enumerate(open(testDB, "r")):
 ### find a file based on name of it
 listofseq = []
 for filename in listofnames:
-    matrix = np.genfromtxt("../datasets/PSSMasci/"+filename+".fasta.pssm", skip_header = 3, skip_footer = 5, dtype=None,usecols = range(22,42))
+    matrix = np.genfromtxt("../datasets/full DB/PSSMasci/"+filename+".fasta.pssm", skip_header = 3, skip_footer = 5, dtype=None,usecols = range(22,42))
     listofseq.append(matrix/100)
 
 map = {"B":0, "E":1}
@@ -57,11 +55,10 @@ for state in statesinnumbers:
     for aa in range(len(state)):
         states.append(state[aa])
 states = np.array(states)
-model = svm.LinearSVC(tol=0.003, max_iter=5000)     
+model = svm.SVC(kernel = "linear", cache_size = 3000)     
 model.fit(a, states)
-joblib.dump(model, 'modelPSSM.pkl')
-end = time.time()
-print(end - start)
+with open('../models/PSSM_model', 'wb') as f:
+    pickle.dump(model, f)
     
 
       

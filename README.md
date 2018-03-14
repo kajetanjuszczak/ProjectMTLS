@@ -65,3 +65,11 @@ Diary:
     * trying to improve the model
     * looking for state of the are for SVC predictors on my task
     * ROC 
+* 13.03 
+    * continued working on figures to report
+    * prepared ROC 
+    * started to write the final report
+* 14.03 
+    * continued working on report
+    * almost finished introduction
+    * working on extracting additional proteins from PDBTM
