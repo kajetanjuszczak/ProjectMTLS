@@ -73,3 +73,5 @@ Diary:
     * continued working on report
     * almost finished introduction
     * working on extracting additional proteins from PDBTM
+    * made my programs look better by changing everything into functions - was a lot of work but it seems like my programs look much better now.
+    * need to work on docstrings tho
