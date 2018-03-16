@@ -78,3 +78,7 @@ Diary:
 * 15.03
     * continued work on final report - results part. 
     * still working on confusion matrix and extracting more proteins for testing
+* 16.03 
+    * almost finished report, if enough time will check PDBTM for aditional proteins
+    * gona finish project tmr.
+    * g2g sleep tho.

@@ -8,7 +8,6 @@ PSSM testing SVC models
 DB = "../datasets/full DB/buried_exposed_beta.3line.txt"
 windowlen = 17
 X, Y = all_parsers.PSSM_input(DB, windowlen)
-print("1")
 for toler in range(1,31,3):
     toler  = toler/10000
     model = svm.SVC(kernel = "linear", cache_size = 3000, tol = toler)
