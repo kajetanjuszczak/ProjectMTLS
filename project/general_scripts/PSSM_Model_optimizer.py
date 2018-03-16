@@ -6,8 +6,11 @@ import all_parsers
 PSSM testing SVC models
 '''
 DB = "../datasets/full DB/buried_exposed_beta.3line.txt"
-for windowlen in range(3,32,2):
-    X, Y = all_parsers.PSSM_input(DB, windowlen)
-    model = svm.SVC(kernel = "poly", cache_size = 3000, degree=3, coef0=1)
+windowlen = 17
+X, Y = all_parsers.PSSM_input(DB, windowlen)
+print("1")
+for toler in range(1,31,3):
+    toler  = toler/10000
+    model = svm.SVC(kernel = "linear", cache_size = 3000, tol = toler)
     score = cross_val_score(model, X, Y, cv = 3)
-    print("windowlen",windowlen, "score",np.average(score))
+    print(np.average(score))

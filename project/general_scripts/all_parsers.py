@@ -22,7 +22,7 @@ def PSSM_to_matrix(DB):
         listofseq.append(matrix/100)
     return listofseq
 def seq_to_array(DB):
-    listofsequences = parser(DB)[2]
+    listofsequences = parser(DB)[1]
     map = {'A': [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
            'R': [0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
            'N': [0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
@@ -87,7 +87,7 @@ def create_windows_PSSM(DB, windowlen):
     a = np.array(listofwindows)
     return a
 def create_windows_no_PSSM_single(DB, windowlen):
-    listofseq = PSSM_to_matrix(DB)
+    listofseq = seq_to_array(DB)
     n = windowlen // 2
     listofsinglewindows = []
     zeros = np.asarray([0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0])
@@ -111,7 +111,7 @@ def create_windows_no_PSSM_single(DB, windowlen):
         listofsinglewindows.append(np.array(listofwindows))
     return listofsinglewindows
 def create_windows_no_PSSM_all(DB, windowlen):
-    listofseq = PSSM_to_matrix(DB)
+    listofseq = seq_to_array(DB)
     n = windowlen // 2
     listofwindows = []
     zeros = np.asarray([0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0])
@@ -154,6 +154,16 @@ def no_PSSM_input_single(DB, windowlen):
     listofsequences = parser(DB)[1]
     listofnames = parser(DB)[0]
     return listofsinglewindows, listofsequences, listofnames
-
+def balance(DB):
+    state = states_of_windows(DB)
+    E = 0
+    B = 0
+    for i in state:
+        if i == 0:
+            B +=1
+        else:
+            E +=1
+    print(E,B, E+B)
+    
 if __name__ == "__main__":
-    no_PSSM_input_single("../datasets/full DB/buried_exposed_beta.3line.txt", 3)
+    balance("../datasets/full DB/buried_exposed_beta.3line.txt")

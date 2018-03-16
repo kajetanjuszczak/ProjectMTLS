@@ -75,3 +75,6 @@ Diary:
     * working on extracting additional proteins from PDBTM
     * made my programs look better by changing everything into functions - was a lot of work but it seems like my programs look much better now.
     * need to work on docstrings tho
+* 15.03
+    * continued work on final report - results part. 
+    * still working on confusion matrix and extracting more proteins for testing
