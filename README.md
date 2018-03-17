@@ -82,3 +82,6 @@ Diary:
     * almost finished report, if enough time will check PDBTM for aditional proteins
     * gona finish project tmr.
     * g2g sleep tho.
+* 17.03
+    * some corrections to the report
+    * changed structure of files

@@ -2,6 +2,7 @@ import numpy as np
 '''
 take PSSM file and state
 '''
+### split file into lists ###
 def parser(DB):
     listofnames =  []
     listofsequences = []
@@ -14,6 +15,7 @@ def parser(DB):
         if i % 3 == 2:
             listofstates.append(line.strip("\n"))
     return listofnames, listofsequences, listofstates
+### extract frequency matrix from PSSM files and normalize ###
 def PSSM_to_matrix(DB):
     listofnames = parser(DB)[0]
     listofseq = []
@@ -21,6 +23,7 @@ def PSSM_to_matrix(DB):
         matrix = np.genfromtxt("../datasets/full DB/PSSMasci/"+filename+".fasta.pssm", skip_header = 3, skip_footer = 5, dtype=None,usecols = range(22,42))
         listofseq.append(matrix/100)
     return listofseq
+### encode sequence into binary form ###
 def seq_to_array(DB):
     listofsequences = parser(DB)[1]
     map = {'A': [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
@@ -51,6 +54,7 @@ def seq_to_array(DB):
             newseq.append(number)
         seqinnumbers.append(newseq)
     return seqinnumbers
+### map states into binary ###
 def map_states(DB):
     listofstates = parser(DB)[2]
     map = {"B":0, "E":1}
@@ -62,7 +66,7 @@ def map_states(DB):
             newstate.append(number)
         statesinnumbers.append(newstate)
     return statesinnumbers
-    ### create windows + match the states
+### create windows + match the states for PSSM ###
 def create_windows_PSSM(DB, windowlen):
     listofseq = PSSM_to_matrix(DB)
     n = windowlen // 2
@@ -86,6 +90,7 @@ def create_windows_PSSM(DB, windowlen):
             listofwindows.append(b)
     a = np.array(listofwindows)
     return a
+### create windows + match the states for sequence(predictor input) ###
 def create_windows_no_PSSM_single(DB, windowlen):
     listofseq = seq_to_array(DB)
     n = windowlen // 2
@@ -110,6 +115,7 @@ def create_windows_no_PSSM_single(DB, windowlen):
             listofwindows.append(b)
         listofsinglewindows.append(np.array(listofwindows))
     return listofsinglewindows
+### create windows + match the states for single sequence info###
 def create_windows_no_PSSM_all(DB, windowlen):
     listofseq = seq_to_array(DB)
     n = windowlen // 2
@@ -133,6 +139,7 @@ def create_windows_no_PSSM_all(DB, windowlen):
             listofwindows.append(b)
     a = np.array(listofwindows)
     return a
+### same states as windows so a state is related to window - only for model ###
 def states_of_windows(DB):
     statesinnumbers = map_states(DB)
     states = []
@@ -141,19 +148,23 @@ def states_of_windows(DB):
             states.append(state[aa])
     states = np.array(states)
     return states
+### model PSSM input ###
 def PSSM_input(DB, windowlen):
     X = create_windows_PSSM(DB, windowlen)
     Y = states_of_windows(DB)
     return X, Y
+### model no PSSM input ###
 def no_PSSM_input(DB, windowlen):
     X = create_windows_no_PSSM_all(DB, windowlen)
     Y = states_of_windows(DB)
     return X, Y
+### predictor input ###
 def no_PSSM_input_single(DB, windowlen):
     listofsinglewindows = create_windows_no_PSSM_single(DB, windowlen)
     listofsequences = parser(DB)[1]
     listofnames = parser(DB)[0]
     return listofsinglewindows, listofsequences, listofnames
+### additional function to check if my DB is balanced ###
 def balance(DB):
     state = states_of_windows(DB)
     E = 0
