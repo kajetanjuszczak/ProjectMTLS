@@ -1,9 +1,11 @@
 # ProjectMTLS
-* For 9.03 deadline
+* For final deadline
 scripts are present in general scripts folder
-PSSM model generates model
-PSSM predictor predict topology for one protein removed from training set to remove chance of biased results
-results are stored in ../results folder as predictedPSSM
+PSSM model generates model based on full database and store it in model folder.
+PSSM predictor predict topology for one example protein, resulting prediction is stored as text file in ../results folder named predictedPSSM(3 line format)
+model is called PSSM_model and it is stored in model folder
+other models for no PSSM and also DTC and RFC methods are also present in model folder.
+more results from model testing are present in excel file in documents folder named results_excel
 
 
 Diary:
