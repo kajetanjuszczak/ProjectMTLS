@@ -91,3 +91,6 @@ Diary:
     * some corrections to the report
     * changed structure of files
 * 19.03 
+    * corrected some stuff 
+    * uploaded final version
+    * send email with report
