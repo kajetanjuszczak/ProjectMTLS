@@ -6,6 +6,7 @@ PSSM_predictor predict topology for one example protein, resulting prediction is
 for no PSSM model creating use model_no_PSSM, and predictor_no_PSSM for prediction of test example. result will be stored in ../results as predictor_single.txt(3 line format)
 model is called PSSM_model and it is stored in model folder
 other models for no PSSM and also DTC and RFC methods are also present in model folder.
+one protein seq for testing and one PSSM is stored in ../datasets/oldtestDB with name 1prottest and related PSSM in PSSMasci folder
 more results from model testing are present in excel file in documents folder named results_excel
 Diary is writen below
 

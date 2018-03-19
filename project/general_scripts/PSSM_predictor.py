@@ -7,7 +7,7 @@ predictiong based on model for PSSM SVC
 '''
 DB = "../datasets/oldtestDB/1prottest.txt"
 windowlen = 17
-listofsinglewindows, listofsequences, listofnames = all_parsers.no_PSSM_input_single(DB, windowlen)
+listofsinglewindows, listofsequences, listofnames = all_parsers.PSSM_input_single(DB, windowlen)
 with open("../models/PSSM_model", "rb") as f:
     model = pickle.load(f)
 stringsofstates = predict_script.predict(model, listofsinglewindows)
@@ -16,6 +16,7 @@ os.chdir(resultdir)
 ### if want any differen output name, change one below ###
 with open("predictedPSSM.txt", "w") as f:
     for i in range(len(listofnames)):
+        pred = stringsofstates[i]
         f.write(">")
         f.write(listofnames[i])
         f.write(("\n"))

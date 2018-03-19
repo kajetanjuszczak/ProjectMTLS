@@ -6,16 +6,16 @@ def predict(model, X):
     for i in range(len(X)):
         prediction = model.predict(X[i])
         listofpredictions.append(prediction)
-        listofstates = []    
-        for seqofstate in listofpredictions:
-            newstate = []
-            for position in seqofstate:
-                if position == 0:
-                    newstate.append("B")
-                else:
-                    newstate.append("E")
-                listofstates.append(newstate)
-    stringsofstates = []
-    for i in range(len(listofstates)):
-        stringsofstates.append("".join(listofstates[i]))
-    return stringsofstates
+    seqpred = []
+    for seq in listofpredictions:
+        newstate = []
+        for possition in seq:
+            if possition == 0:
+                newstate.append("B")
+            else:
+                newstate.append("E")
+        seqpred.append(newstate)
+    stringsofstatessigle = []
+    for i in range(len(seqpred)):
+        stringsofstatessigle.append("".join(seqpred[i]))
+    return stringsofstatessigle
